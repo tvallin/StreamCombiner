@@ -14,14 +14,14 @@ import java.util.Collections;
 
 public class ClientConnection implements Runnable{
 	
-	private Socket connexion = null;
-	private PrintWriter writer = null;
-	private BufferedInputStream reader = null;
-	private int numberXMLRequest = 1;
-	private List<String> serverReplyList = Collections.synchronizedList(new ArrayList<String>());
+	   private Socket connexion = null;
+	   private PrintWriter writer = null;
+	   private BufferedInputStream reader = null;
+	   private int numberXMLRequest = 1;
+	   private List<String> serverReplyList = Collections.synchronizedList(new ArrayList<String>());
 	   
-	private static int count = 0;
-	private String name = "Client-";   
+	   private static int count = 0;
+	   private String name = "Client-";   
 	   
 	   public ClientConnection(String host, int port){
 	      name += ++count;
@@ -39,25 +39,23 @@ public class ClientConnection implements Runnable{
 		   
 		   for(int i = 0; i < numberXMLRequest; i++){
   	         
-			   try {   
-				   
+			   try { 
 				   reader = new BufferedInputStream(connexion.getInputStream());
-
-				   try {
+			    	   try {
 					   //Send command to server
 					   writer = new PrintWriter(connexion.getOutputStream(), true);
 					   writer.write("GETXML");
 					   writer.flush();
-		            } catch (Exception e) {
-		            	//Write error into log file
-		            	FileWriter writer = new FileWriter(System.getProperty("user.dir") + "log.txt");
-		            	String debug = "";
-			            debug = "Thread : " + Thread.currentThread().getName() + ". ";
-			            debug += "\t Client : " + name + "\n";
-			            debug += "\t -> Command sent : GETXML \n";
-		                writer.write(debug);
-		                writer.close();
-		            } 
+		            		} catch (Exception e) {
+					   //Write error into log file
+					   FileWriter writer = new FileWriter(System.getProperty("user.dir") + "log.txt");
+					   String debug = "";
+					   debug = "Thread : " + Thread.currentThread().getName() + ". ";
+					   debug += "\t Client : " + name + "\n";
+					   debug += "\t -> Command sent : GETXML \n";
+					   writer.write(debug);
+					   writer.close();
+					} 
 				   
 				   //Wait for respond
 				   String response = read();
@@ -76,7 +74,7 @@ public class ClientConnection implements Runnable{
 		    	      
 		   //Close the connection
 		   writer.write("END");
-           writer.flush();
+           	   writer.flush();
 		   writer.close();
 	   }
 	   
