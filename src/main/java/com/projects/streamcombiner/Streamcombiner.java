@@ -81,7 +81,7 @@ public class Streamcombiner {
 
 		//Print Result
 		printList(jsonList);
-    }
+    	}
 	
 	public static void checkEqualTimeStamp(List<Data> pojoList)
 	{
