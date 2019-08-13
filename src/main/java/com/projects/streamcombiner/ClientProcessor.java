@@ -65,9 +65,9 @@ public class ClientProcessor implements Runnable{
 	            	InetSocketAddress remote = (InetSocketAddress)sock.getRemoteSocketAddress();
 	            	String debug = "";
 		            debug = "Thread : " + Thread.currentThread().getName() + ". ";
-		            debug += "Demande de l'adresse : " + remote.getAddress().getHostAddress() +".";
-		            debug += " Sur le port : " + remote.getPort() + ".\n";
-		            debug += "\t -> Commande reçue : " + response + "\n";
+		            debug += "Address : " + remote.getAddress().getHostAddress() +".";
+		            debug += "On port : " + remote.getPort() + ".\n";
+		            debug += "\t -> Command received : " + response + "\n";
 	                writer.write(debug);
 	                writer.close();
 	            }
@@ -81,7 +81,7 @@ public class ClientProcessor implements Runnable{
 	            }
 	            
 	         }catch(SocketException e){
-	            System.err.println("Connection interupted ! ");
+	            System.err.println("Connection interrupted !");
 	            break;
 	         } catch (IOException e) {
 	            e.printStackTrace();
