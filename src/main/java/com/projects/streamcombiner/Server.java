@@ -7,13 +7,13 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Server {
-	private static int count = 0;
+	   private static int count = 0;
 	
-	private int port = 2345;
-	private String host = "127.0.0.1";
-	private ServerSocket server = null;
-	private boolean isRunning = true;
-	private String name = "Server-"; 
+	   private int port = 2345;
+	   private String host = "127.0.0.1";
+	   private ServerSocket server = null;
+	   private boolean isRunning = true;
+	   private String name = "Server-"; 
 	   
 	   public Server(){
 	      try {
