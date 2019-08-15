@@ -4,7 +4,7 @@ Stream Combiner is an application that allows you to create a combined stream. T
 
 # Description (15/08/2019)
 
-Main task : Simulate N server which send xml stream and convert them into JSON format
+Main task : Simulate N server which send xml stream, treat the data, and convert them into JSON format
 
 About Server/Client behavior:
 
