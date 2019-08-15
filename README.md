@@ -16,10 +16,10 @@ About Server/Client behavior:
   
 About XML treatment:
 
-XML format: <data> <timeStamp>123456789</timeStamp> <amount>1234.567890</amount> </data>
+XML format: ```xml <data> <timeStamp>123456789</timeStamp> <amount>1234.567890</amount> </data> ```
   
   * The XML data is converted to POJO (Data class)
   * For POJO with same timeStamp, the amount is merged
   * The POJOs are sorted by timeStamp
-  * POJOs are converted to JSON format : { "data": { "timestamp":123456789, "amount":"1234.567890" }}
+  * POJOs are converted to JSON format : ``` { "data": { "timestamp":123456789, "amount":"1234.567890" }}```
   
