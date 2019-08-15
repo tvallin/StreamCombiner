@@ -16,7 +16,7 @@ About Server/Client behavior:
   
 About XML treatment:
 
-XML format: ```xml <data> <timeStamp>123456789</timeStamp> <amount>1234.567890</amount> </data> ```
+XML format: ``` <data> <timeStamp>123456789</timeStamp> <amount>1234.567890</amount> </data> ```
   
   * The XML data is converted to POJO (Data class)
   * For POJO with same timeStamp, the amount is merged
