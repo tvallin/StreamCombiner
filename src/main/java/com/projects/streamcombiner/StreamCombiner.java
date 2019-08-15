@@ -9,8 +9,8 @@ import java.io.IOException;
 /*
  * Main project Class
  * 		Goal : Gather xml stream from N server.
- * 			   Sort it by Timestamp and merge amount for equals Timestamp.
- * 			   Output the data in JSON format.
+ * 		       Sort it by Timestamp and merge amount for equals Timestamp.
+ * 		       Output the data in JSON format.
  * 
  * 		Step 1 : Generate N server and Client (Each Server/Client on separated thread)
  * 		Step 2 : Client(s) are collecting xml stream from sever(s)
@@ -25,7 +25,7 @@ public class StreamCombiner {
 	
 	public static void main( String[] args ) throws InterruptedException
 	{
-		//Number of server
+		//N: Number of server generated can be changed here
 		int N = 2;
 		String host = "127.0.0.1";
 		int port = 2350;
@@ -43,15 +43,15 @@ public class StreamCombiner {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//Contain all xml data from servers
+		//Contains all xml data from servers
 		List<String> xmlData = Collections.synchronizedList(new ArrayList<String>());
-		//Contain Json data from POJO
+		//Contains Json data from POJO
 		List<String> jsonList =  new ArrayList<String>();
-		//Contain all clients
+		//Contains all clients
 		List<ClientConnection> clientConnectionList = new ArrayList<ClientConnection>();
-		//Contain all Thread where Servers and Clients run
+		//Contains all Thread where Servers and Clients run
 		List<Thread> clientThread = new ArrayList<Thread>();
-		//Contain POJOs
+		//Contains POJOs
 		List<Data> pojoList = new ArrayList<Data>();
 
 		//Creates N Server, Client and make them run on several Thread gathered into clientThread array
@@ -99,8 +99,8 @@ public class StreamCombiner {
 	 * Goal : Merge amount for equal timestamp
 	 * 
 	 * Details :
-	 * Reach all element from the list to compare them.
-	 * If same timestamp, the amount is merge and the element without the merged amount is removed from the list
+	 * 	Reach all element from the list to compare them.
+	 * 	If same timestamp, the amount is merge and the element without the merged amount is removed from the list
 	 * 
 	 * @Param pojoList : List of Data object containing Timestamp and amount
 	 */
