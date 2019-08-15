@@ -18,7 +18,8 @@ public class ClientConnection implements Runnable{
 	private Socket connexion = null;
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
-	private int numberXMLRequest = 2;
+	//Number of XML request sent by client can be changed here
+	private int numberXMLRequest = 1;
 	private List<String> serverReplyList = Collections.synchronizedList(new ArrayList<String>());
 	   
 	private static int count = 0;
