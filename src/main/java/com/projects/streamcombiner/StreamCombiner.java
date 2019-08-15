@@ -24,77 +24,76 @@ import java.io.IOException;
 public class StreamCombiner {
 	
 	public static void main( String[] args ) throws InterruptedException
-    {
+	{
 		//Number of server
 		int N = 2;
-        String host = "127.0.0.1";
-        int port = 2350;
+		String host = "127.0.0.1";
+		int port = 2350;
         
-        //A log file is create to gather all error during Client/Server process
-        File logFile = new File(System.getProperty("user.dir") + "log.txt");
-        		
-        try {
+		//A log file is create to gather all error during Client/Server process
+		File logFile = new File(System.getProperty("user.dir") + "log.txt");
+        	
+		try {
 			if (logFile.createNewFile())
 			{
-			    System.out.println("Log File is created!");
+				System.out.println("Log File is created!");
 			} else {
-			    System.out.println("Log File already exists.");
+				System.out.println("Log File already exists.");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
-        //Contain all xml data from servers
-        List<String> xmlData = Collections.synchronizedList(new ArrayList<String>());
-        //Contain Json data from POJO
-        List<String> jsonList =  new ArrayList<String>();
-        //Contain all clients
-        List<ClientConnection> clientConnectionList = new ArrayList<ClientConnection>();
-        //Contain all Thread where Servers and Clients run
-        List<Thread> clientThread = new ArrayList<Thread>();
-        //Contain POJOs
-        List<Data> pojoList = new ArrayList<Data>();
+		//Contain all xml data from servers
+		List<String> xmlData = Collections.synchronizedList(new ArrayList<String>());
+		//Contain Json data from POJO
+		List<String> jsonList =  new ArrayList<String>();
+		//Contain all clients
+		List<ClientConnection> clientConnectionList = new ArrayList<ClientConnection>();
+		//Contain all Thread where Servers and Clients run
+		List<Thread> clientThread = new ArrayList<Thread>();
+		//Contain POJOs
+		List<Data> pojoList = new ArrayList<Data>();
 
-        //Creates N Server, Client and make them run on several Thread gathered into clientThread array
-        for(int i = 0; i < N; i++){
-        	Server ts = new Server(host, port);
-            ts.open();
-            //System.out.println("Server initialized");
-            ClientConnection cc = new ClientConnection(host, port);
-            clientConnectionList.add(cc);
-            Thread t = new Thread(cc);
-            clientThread.add(t);
-            t.start();
-            port++;
-        }
+		//Creates N Server, Client and make them run on several Thread gathered into clientThread array
+		for(int i = 0; i < N; i++){
+			Server ts = new Server(host, port);
+			ts.open();
+			//System.out.println("Server initialized");
+			ClientConnection cc = new ClientConnection(host, port);
+			clientConnectionList.add(cc);
+			Thread t = new Thread(cc);
+			clientThread.add(t);
+			t.start();
+			port++;
+		}
         
-        //Wait all Clients to finish gathering xml
-        for(int j = 0; j < N; j++)
-        {
-        	clientThread.get(j).join();
-        }
+		//Wait all Clients to finish gathering xml
+		for(int j = 0; j < N; j++)
+		{
+			clientThread.get(j).join();
+		}
         
-        //Gather all xml into a unique list
-        for(int  k = 0; k < N; k++)
-        {
-        	xmlData.addAll(clientConnectionList.get(k).getList());
-        }
+		//Gather all xml into a unique list
+		for(int  k = 0; k < N; k++)
+		{
+			xmlData.addAll(clientConnectionList.get(k).getList());
+		}
         
-        //Convert xml to POJO
-        toPOJO(pojoList, xmlData);
+		//Convert xml to POJO
+		toPOJO(pojoList, xmlData);
         
-        //Merge amount for same timestamp
-        checkEqualTimeStamp(pojoList);
+		//Merge amount for same timestamp
+		checkEqualTimeStamp(pojoList);
         
-        //Sort the list thanks to timestamp
-        sortPOJOList(pojoList);
+		//Sort the list thanks to timestamp
+		sortPOJOList(pojoList);
         
-        //Convert POJO to JSON
-        toJSON(pojoList,jsonList);
+		//Convert POJO to JSON
+		toJSON(pojoList,jsonList);
         
-        //Print Result
-        printList(jsonList);
-    }
+		//Print Result
+		printList(jsonList);
+	}
 	
 	/*
 	 * Goal : Merge amount for equal timestamp
@@ -115,10 +114,10 @@ public class StreamCombiner {
 					if (pojoList.get(i).getTimeStamp() == pojoList.get(j).getTimeStamp()) {
 						pojoList.get(i).setAmount(pojoList.get(i).getAmount() + pojoList.get(j).getAmount());
 						pojoList.remove(j);
-		            }
+					}
 				}
 			}
-        }
+		}
 	}
 	
 	/*
@@ -147,7 +146,7 @@ public class StreamCombiner {
 			}
 			
 			pPojoList.add(data);
-        }
+		}
 	}
 	
 	/*
@@ -160,18 +159,18 @@ public class StreamCombiner {
 	public static void sortPOJOList(List<Data> pojoList)
 	{
 		boolean sorted = false;
-	    Data temp;
-	    while(!sorted) {
-	        sorted = true;
-	        for (int i = 0; i < pojoList.size() - 1; i++) {
-	            if (pojoList.get(i).getTimeStamp() > pojoList.get(i+1).getTimeStamp()) {
-	                temp = pojoList.get(i);
-	                pojoList.remove(i);
-	                pojoList.add(i+1,temp);
-	                sorted = false;
-	            }
-	        }
-	    }
+		Data temp;
+		while(!sorted) {
+			sorted = true;
+			for (int i = 0; i < pojoList.size() - 1; i++) {
+				if (pojoList.get(i).getTimeStamp() > pojoList.get(i+1).getTimeStamp()) {
+					temp = pojoList.get(i);
+					pojoList.remove(i);
+					pojoList.add(i+1,temp);
+					sorted = false;
+				}
+			}
+		}
 	}
 	
 	/*
@@ -182,7 +181,6 @@ public class StreamCombiner {
 	 */
 	public static void toJSON(List<Data> pojoList, List<String> jsonList)
 	{
-		
 		for(int i = 0; i < pojoList.size(); i++)
 		{
 			jsonList.add(new String("{ \"data\": { \"timestamp\":" + String.valueOf(pojoList.get(i).getTimeStamp()) + ", \"amount\":\"" + String.valueOf(pojoList.get(i).getAmount()) + "\" }}"));
@@ -198,8 +196,8 @@ public class StreamCombiner {
 	{
 		System.out.println("Print list :");
 		for(int i = 0; i < pList.size(); i++)
-        {
-        	System.out.println(pList.get(i));
-        }
+		{
+			System.out.println(pList.get(i));
+		}
 	}
 }
