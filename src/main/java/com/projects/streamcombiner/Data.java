@@ -16,6 +16,12 @@ public class Data
 		this.amount = 0;
 	}
 	
+	public Data(long pTimeStamp, double pAmount)
+	{
+		this.timeStamp = pTimeStamp;
+		this.amount = pAmount;
+	}
+	
 	public long getTimeStamp()
 	{
 		return  this.timeStamp;
@@ -36,7 +42,9 @@ public class Data
 		this.amount = amount;
 	}
 	
-	//Print Data fields
+	/*
+	 * @Return : Return the Data fields as a string
+	 */
 	public String toString()
 	{
 		return new StringBuilder("timeStamp : "+ this.timeStamp +" amount : "+ this.amount).toString();	
