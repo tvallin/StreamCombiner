@@ -49,7 +49,7 @@ public class Server {
 	 * Goal : Start the server process into a new Thread
 	 * 
 	 * Process : Wait for client connection.
-	 * 			Once connection made, treat the request from client into a new thread
+	 * 	     Once connection made, treat the request from client into a new thread
 	 */
 	public void open(){
 		
